@@ -1,0 +1,132 @@
+@import url(https://fonts.googleapis.com/css?family=Lily+Script+One);
+
+/* form #twzipcode_ADV{
+  clear:both;
+  overflow:hidden;
+  padding:10px;
+  margin-bottom:10px;
+  background:#efefef;
+  border-radius:5px;
+} */
+
+
+
+form select{
+	margin:15px 0;
+	padding:15px 10px;
+  background-color: white;
+	outline:none;
+	border:1px solid #bbb;
+	border-radius:5px;
+  height:60px;
+	display:inline-block;
+	-webkit-box-sizing:border-box;
+	   -moz-box-sizing:border-box;
+	        box-sizing:border-box;
+    -webkit-transition:0.2s ease all;
+	   -moz-transition:0.2s ease all;
+	    -ms-transition:0.2s ease all;
+	     -o-transition:0.2s ease all;
+	        transition:0.2s ease all;
+}
+
+.field-name{
+  font-size: 20px;
+}
+
+.fname_input,
+.lname_input,
+.email_input,
+.address_input,
+.phone_input{
+  width : 370px;
+}
+
+.fname_input{
+  margin-left: 0px;
+}
+
+/* .email_input{
+  margin-top: 10px;
+} */
+
+
+
+#twzipcode_ADV{
+  width: 600px;
+  margin-left: 0px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#county{
+  margin-left: 0px;
+}
+#district{
+  margin-left: 20px;
+}
+.address_input{
+  margin-left: 10px;
+  height: 50px;
+}
+
+
+@media screen and (max-width: 760px)  {
+  .fname_input{
+    margin-left: 0px;
+  }
+  .email_input{
+    margin-top: 0px;
+  }
+  #twzipcode_ADV{
+    margin-left: 0px;
+  }
+  .address_input{
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width:400px) {
+  .fname_input{
+    margin-left: 0px
+  }
+}
+
+
+
+
+
+
+.btn-product{
+  margin-top: 20px;
+}
+/* form input[type=text]:focus,
+form input[type="password"]:focus {
+	border-color:cornflowerblue;
+}
+
+input[type=submit] {
+	padding:15px 50px;
+	width:auto;
+	background:#1abc9c;
+	border:none;
+	color:white;
+	cursor:pointer;
+	display:inline-block;
+	float:right;
+	clear:right;
+	-webkit-transition:0.2s ease all;
+	   -moz-transition:0.2s ease all;
+	    -ms-transition:0.2s ease all;
+	     -o-transition:0.2s ease all;
+	        transition:0.2s ease all;
+}
+
+input[type=submit]:hover {
+	opacity:0.8;
+}
+
+input[type="submit"]:active {
+	opacity:0.4;
+} */

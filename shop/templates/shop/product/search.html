@@ -1,0 +1,51 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+
+{%block content%}
+<div class="row">
+    <nav class="nav nav-tabs">
+      <ul class="nav navbar-nav">
+        {% for o in ordered_navs %}
+            <li class="button " >
+                <!--<a href="{{ o.get_search_url }}">{{ o.name }}</a>-->
+                {%with nav_slug=o.slug cache_query=query%}
+                <a href="{% url 'shop:product_list_by_search' nav_slug cache_query%}">{{ o.name }}</a>
+                {%endwith%}
+
+                <div class="right-border"></div>
+            </li>
+        {% endfor %}
+      </ul>
+     </nav>
+</div>
+
+<div class="row">
+      {%with search_len=search_result|length products_len=products|length%}
+      {% if search_len == products_len%}
+          {%for s in search_result%}
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <a href="{{ s.get_absolute_url }}"></a>
+                        <img src="{% if s.image %}{{ s.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                    <a href="{{ s.get_absolute_url }}">{{ s.name }}</a><br>
+                    ${{ s.price }}
+                </div>
+            </div>
+          {%endfor%}
+
+      {%else%}
+          {%for p in products%}
+              <div class="col-md-4">
+                  <div class="thumbnail">
+                      <a href="{{ p.get_absolute_url }}"></a>
+                          <img src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                      <a href="{{ p.get_absolute_url }}">{{ p.name }}</a><br>
+                      ${{ p.price }}
+                  </div>
+              </div>
+          {% endfor %}
+      {% endif %}
+      {% endwith %}
+</div>
+{%endblock%}

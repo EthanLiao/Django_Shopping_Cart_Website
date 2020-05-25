@@ -1,0 +1,170 @@
+{% load static %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
+<head>
+{% block head %}
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+    <link href="{%static 'css/shop/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>{% block title %}{% endblock %}</title>
+    <!--a tag for django to employ bootstrap_css-->
+{% endblock %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+
+
+<body>
+
+  <!-- <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header col-md-5">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span><span class="icon-bar">
+          </span>
+        </button>
+        <a class="navbar-brand" href="/">冠軍模組</a>
+        <div id="search" class="col-md-offset-3 col-xs-offset-3">
+          <i class="fas fa-search" id="search-icon"></i>
+          <form action="{%url 'shop:product_search'%}" method="get">
+            <input id="search-input" type="text" placeholder="Search" id="txtSearch" name="Keyword">
+          </form>
+          <div class="col-md-offset-3 col-xs-offset-3">
+            <i class="fas fa-shopping-cart shopping-cart-icon shopping_cart "></i>
+            <span id="itemCount">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#section_about">關於我們</a></li>
+          <li><a href="#section_works">聯絡我們<span class="sr-only">(current)</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container nav-container">
+    <div class="row">
+        <div class="col-md-offset-0 col-xs-offset-0">
+            <ul class="nav navbar-nav">
+              {% for n in navbars %}
+                  <li class="button nav-button" >
+                    <a href="{{n.get_absolute_url}}"><h6>{{n.name}}</h6></a>
+                    <div class="right-border"></div>
+                  </li>
+              {% endfor %}
+            </ul>
+        </div>
+    </div>
+  </div> -->
+
+<header>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header col-md-5">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span><span class="icon-bar">
+          </span>
+        </button>
+        <a class="navbar-brand" href="/">冠軍模組</a>
+        <div id="search" class="col-md-offset-3 col-xs-offset-3">
+          <i class="fas fa-search" id="search-icon"></i>
+          <form action="{%url 'shop:product_search'%}" method="get">
+            <input id="search-input" type="text" placeholder="Search" id="txtSearch" name="Keyword">
+          </form>
+        </div>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav navbar-right">
+          {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+              <li>
+                <a href="/cart" id="showCart" >
+                  <svg width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"></path>
+                  </svg>
+                  <span class="itemCount">{{ total_items }}</span>
+                </a>
+              </li>
+            {% else %}
+              <li>
+                <a href="/" id="showCart" >
+                  <svg width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"></path>
+                  </svg>
+                  <span class="itemCount">{{ total_items }}</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endwith %}
+          <!-- <li><a href="#section_about">關於我們</a></li> -->
+          <li><a href="#section_works">聯絡我們<span class="sr-only">(current)</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+  <div class="container nav-container">
+    <div class="row">
+        <div class="col-md-offset-0 col-xs-offset-0">
+            <ul class="nav navbar-nav">
+              {% for n in navbars %}
+                  <li class="button nav-button" >
+                    <a href="{{n.get_absolute_url}}"><h6>{{n.name}}</h6></a>
+                    <div class="right-border"></div>
+                  </li>
+              {% endfor %}
+            </ul>
+        </div>
+    </div>
+  </div>
+
+<!--You can see above in the cart/cart.py-->
+<!--It means that you use the __len__ method here-->
+<!--__len__ method here reference as total_items -->
+<!-- <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {# call __len__ #}
+            {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    Your cart:
+                    <a href="{% url "cart:cart_detail" %}">
+                        {# If total_items is 1, the output will be 1 item. #}
+                        {# If total_items is 2, the output will be 2 items. #}
+                        {{ total_items }} item{{ total_items|pluralize }},
+                        ${{ cart.get_total_price }}
+                        Clik here for Checkout
+                    </a>
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="itemCount">{{ total_items }}</span>
+                {% else %}
+                    Your shopping cart is empty.
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="itemCount">0</span>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div> -->
+
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+    {% block scripts %}
+    <script src="{%static "js/shop/base.js" %}"></script>
+    {% endblock %}
+</div>
+</body>
+</html>

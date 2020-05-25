@@ -1,0 +1,112 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+
+{% block head %}
+  {{block.super}}
+  <link rel="stylesheet" href="{%static 'css/shop/detail.css' %}">
+{% endblock %}
+
+{% load bootstrap3 %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-2 col-xs-12">
+            <h3>Categories</h3>
+            <ul class="nav nav-pills nav-stacked">
+              <!--Below is rendered from shop/views.py-->
+              {%if not navbar%}
+              <li {% if not category %} class="active" {% endif %}>
+                  <!--As we clik the link ,it will call views.product_list defined in the  urls.py-->
+                  <a href="{% url "shop:product_list" %}">All</a></li>
+              {% endif %}
+              {% for c in categories %}
+              <!--If you click the specific category , it will show active -->
+              <li {% if category.slug == c.slug %}class="active"{% endif %}>
+                  <!--As we clik the link ,it will call models.get_absolute_url and then
+                  store the slug parameter as category_slug pass to views.product_list
+                  product_list_by_category defined in the urls.py  -->
+                  <!--<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>-->
+                  {% with nav_slug=navbar.slug c_slug=c.slug c_id=c.id %}
+                  <a href="{% url 'shop:product_list_by_category' c_slug nav_slug c_id %}">{{ c.name }}</a>
+                  {% endwith %}
+              </li>
+              {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-5 col-md-4">
+          <img style="height:250px " src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"class="img-responsive">
+        </div>
+
+        <div class="col-md-6 col-md-4">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                <div class="col-xs-4 col-xs-offset-0 price">
+                    <h3><label>${{ product.price }}</label></h3>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <p> 貨運重量 : {{product.kilometers}}</p>
+              </div>
+              <div class="col-xs-5">
+                <h5><a href="{% static product.method_URL %}" target="_blank">運費規則</a></h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 col-xs-offset-0">
+                <form class="add-form" action="{% url "cart:cart_add" product.id %}" method="post">
+                <!--you can see the above code in the cart/urls.py-->
+                {% csrf_token %}
+                <!--{% bootstrap_form cart_product_form %}-->
+                <!--{{cart_product_form}}-->
+                    <div class="row">
+                       <div class="col-md-5 col-xs-6 button_wrapper">
+                        <div class="value-button col-md-1 col-xs-1" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                          {{cart_product_form}}
+                          <!--you can see the above code in the shop/views.py-->
+                        <div class="value-button col-md-1 col-xs-1" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                       </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5 col-xs-5">
+                       <button type="submit" class="btn btn-success btn-product submit-button ">
+                           <span class="glyphicon glyphicon-shopping-cart "></span> 加入購物車
+                       </button>
+                      </div>
+                      <div class="col-md-5 col-md-offset-1 col-xs-5">
+                       <!-- <button type="submit" class="btn btn-danger submit-button" formaction={{product.transcript_URL}}>
+                           <span class="glyphicon glyphicon-file "> 講義區</span>
+                       </button> -->
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-danger transcript_btn">
+                      <a href={{product.transcript_URL}} class=" glyphicon glyphicon-file" style="color:white" target="_blank">講義區</a>
+                    </button>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row description-block">
+      <div class="col-md-12 col-md-offset-2">
+        <p>{{ product.description }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-md-offset-2">
+        <iframe width="420" height="315" src={{product.video_URL}}>
+        </iframe>
+      </div>
+    </div>
+
+    {% block scripts %}
+    {{block.super}}
+    <script src="{%static "js/shop/detail.js" %}"> </script>
+    <script src="{%static "js/shop/base.js" %}"></script>
+    {% endblock %}
+
+{% endblock %}
